@@ -1,0 +1,191 @@
+
+openapi: 3.1.0
+info:
+  title: D&D Log Keeper API
+  description: |
+    Lightweight API to automatically log and retrieve Dungeons & Dragons session entries.
+    Supports fully automated logging of passive world events, tactical decisions, and NPC interactions without user confirmation.
+  version: 1.0.0
+servers:
+  - url: https://dnd-log-keeper.onrender.com
+
+paths:
+  /log:
+    get:
+      operationId: retrieveLogs
+      summary: Retrieve log entries automatically
+      description: Retrieve existing log entries by session ID without user confirmation.
+      parameters:
+        - name: session_id
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A list of logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  log_count:
+                    type: integer
+                  logs:
+                    type: array
+                    items:
+                      type: object
+
+    post:
+      operationId: createLogEntry
+      summary: Automatically create a new log entry
+      description: Automatically submit a new log entry for the D&D session without requiring user confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - session_id
+                - content
+              properties:
+                session_id:
+                  type: string
+                content:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                npcs_involved:
+                  type: array
+                  items:
+                    type: string
+                relationship_changes:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        "200":
+          description: Log entry created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  entry:
+                    type: object
+
+  /log/auto:
+    post:
+      operationId: autoLogEntry
+      summary: Auto-log D&D events
+      description: Auto-log D&D events such as passive world changes and tactical decisions without user confirmation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - session_id
+                - content
+              properties:
+                session_id:
+                  type: string
+                content:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                npcs_involved:
+                  type: array
+                  items:
+                    type: string
+                relationship_changes:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        "200":
+          description: Auto log entry created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /Reset:
+    get:
+      operationId: resetAllLogs
+      summary: Clear all logs
+      description: Completely deletes all current logs in the system.
+      responses:
+        "200":
+          description: Logs cleared
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /reset/{session_id}:
+    get:
+      operationId: resetSessionLogs
+      summary: Clear logs for a specific session
+      description: Completely deletes logs for the specified session ID.
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Session logs cleared
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "404":
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /:
+    get:
+      operationId: getApiStatus
+      summary: API status and recent logs
+      description: Basic info about the API and the latest log entries.
+      responses:
+        "200":
+          description: Service health and recent logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  log_count:
+                    type: integer
+                  recent_logs:
+                    type: array
+                    items:
+                      type: object

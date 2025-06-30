@@ -1,0 +1,28 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "D&D Log Keeper",
+  "name_for_model": "dnd_log_keeper",
+  "description_for_human": "Automatically log and retrieve events in your D&D campaign. Supports session-based logs, tagging, NPC tracking, relationship updates, and real-time auto-logging for world events and tactical decisions without player confirmation.",
+  "description_for_model": "Use this plugin to create and retrieve Dungeons & Dragons session logs automatically. All events, tactical actions, passive world changes, and squad commands should be logged automatically without requiring player confirmation. Supports POST log creation with session IDs, NPCs, tags, and relationship changes, plus paginated GET log retrieval.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://dnd-log-keeper.onrender.com/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "permissions": [
+    {
+      "name": "auto_log_post",
+      "description": "Allows automatic logging of D&D events without requiring user confirmation."
+    },
+    {
+      "name": "auto_log_get",
+      "description": "Allows automatic retrieval of D&D session logs without requiring user confirmation."
+    }
+  ],
+  "logo_url": "https://dnd-log-keeper.onrender.com/logo.png",
+  "contact_email": "you@example.com",
+  "legal_info_url": "https://dnd-log-keeper.onrender.com/privacy"
+}
