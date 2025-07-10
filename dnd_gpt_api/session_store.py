@@ -5,9 +5,13 @@ from typing import List
 
 LOG_DIR = "session_logs"
 
-# Ensure the log directory exists and is a proper directory
-if not os.path.exists(LOG_DIR) or not os.path.isdir(LOG_DIR):
-    os.makedirs(LOG_DIR, exist_ok=True)
+# Ensure session_logs is a directory and not a file
+if os.path.exists(LOG_DIR):
+    if not os.path.isdir(LOG_DIR):
+        os.remove(LOG_DIR)
+        os.makedirs(LOG_DIR)
+else:
+    os.makedirs(LOG_DIR)
 
 def get_log_path(session_id: str) -> str:
     return os.path.join(LOG_DIR, f"{session_id}.json")
