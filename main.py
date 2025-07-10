@@ -1,8 +1,8 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from dnd-gpt-api.models import LogEntry, SessionRequest
-from dnd-gpt-api.session_store import save_log, get_logs, list_sessions
+from dnd_gpt_api.models import LogEntry, SessionRequest
+from dnd_gpt_api.session_store import save_log, get_logs, list_sessions
 import uvicorn
 
 app = FastAPI(
