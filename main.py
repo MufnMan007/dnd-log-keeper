@@ -15,7 +15,7 @@ app.add_middleware(
 
 @app.post("/log")
 def log_entry(entry: LogEntry):
-    save_log(entry)
+    save_log(LogEntry(**entry))
     return {"message": "Log saved successfully"}
 
 @app.get("/logs/{session_id}")
@@ -36,7 +36,7 @@ def quick_save(session_id: str, speaker: str, content: str):
         "content": content,
         "tags": []
     }
-    save_log(entry)
+    save_log(LogEntry(**entry))
     return {"message": "Saved via /save route", "entry": entry}
 
 @app.get("/load/{session_id}")
@@ -52,6 +52,8 @@ def clear_session(session_id: str):
         return {"message": f"Session {session_id} cleared."}
     else:
         raise HTTPException(status_code=404, detail="Session not found")
+
+
 @app.get("/")
 def root():
     return {"message": "🎲 Welcome to the DnD Log Keeper API!"}
