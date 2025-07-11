@@ -52,3 +52,6 @@ def clear_session(session_id: str):
         return {"message": f"Session {session_id} cleared."}
     else:
         raise HTTPException(status_code=404, detail="Session not found")
+@app.get("/")
+def root():
+    return {"message": "🎲 Welcome to the DnD Log Keeper API!"}
