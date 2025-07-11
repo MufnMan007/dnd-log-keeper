@@ -1,0 +1,53 @@
+openapi: 3.0.1
+info:
+  title: D&D Log Keeper API
+  description: API for logging and retrieving D&D session data.
+  version: "1.0.0"
+paths:
+  /log:
+    post:
+      summary: Log an entry to a D&D session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogEntry'
+      responses:
+        '200':
+          description: Log saved
+  /logs/{session_id}:
+    get:
+      summary: Retrieve all logs for a session
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of logs
+  /sessions:
+    get:
+      summary: List available session IDs
+      responses:
+        '200':
+          description: Available sessions
+components:
+  schemas:
+    LogEntry:
+      type: object
+      properties:
+        session_id:
+          type: string
+        timestamp:
+          type: string
+        speaker:
+          type: string
+        content:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string

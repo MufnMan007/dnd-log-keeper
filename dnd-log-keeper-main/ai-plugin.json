@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "dnd_log_keeper",
+  "name_for_human": "D&D Log Keeper",
+  "description_for_model": "Log and retrieve Dungeons & Dragons session entries, characters, and story progression.",
+  "description_for_human": "Keep detailed logs of your D&D sessions. Useful for players and dungeon masters alike.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://dnd-log-keeper.onrender.com/openapi.yaml"
+  },
+  "logo_url": "https://dnd-log-keeper.onrender.com/logo.png",
+  "contact_email": "support@dndkeeper.example",
+  "legal_info_url": "https://dnd-log-keeper.onrender.com/privacy.html"
+}
